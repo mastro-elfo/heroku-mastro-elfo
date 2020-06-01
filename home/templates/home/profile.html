@@ -10,7 +10,7 @@
 
 {% if user.is_authenticated %}
   <h3>Thanks for logging in, {{ user.username }}</h3>
-  
+
   <div class="list-group">
     <div class="list-group-item">
       <p class="mb-1">{{ user.username }}</p>
@@ -30,6 +30,19 @@
     <div class="list-group-item">
       <p class="mb-1">{{ user.last_name }}</p>
       <small>Last name</small>
+    </div>
+
+    <div class="list-group-item">
+      {% if user.is_superuser %}
+        <p class="mb-1">Superuser</p>
+      {% else %}
+        {% if user.is_staff %}
+          <p class="mb-1">Staff</p>
+        {% else %}
+          <p class="mb-1">User</p>
+        {% endif %}
+      {% endif %}
+      <small>Type</small>
     </div>
 
     <div class="list-group-item">
