@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Mastro Elfo - Profile{% endblock %}
+
+{% block navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+  <h3>Edit your data, {{ user.username }}</h3>
+
+  <form>
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" value="{{ user.username }}" aria-describedby="usernameHelp">
+      {% if error.username %}
+          <small id="usernameHelp" class="text-danger">Please enter a valid username</small>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" id="email" value="{{ user.email }}" aria-describedby="emailHelp">
+      {% if error.email %}
+          <small id="emailHelp" class="text-danger">Please enter a valid email</small>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="email">First name</label>
+      <input type="email" class="form-control" id="first_name" value="{{ user.first_name }}">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Last name</label>
+      <input type="text" class="form-control" id="last_name" value="{{ user.last_name }}">
+    </div>
+
+    <button disabled type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+{% else %}
+  <p>Welcome, new user. Please <a href="/accounts/login">log in</a>.</p>
+{% endif %}
+
+{% endblock %}

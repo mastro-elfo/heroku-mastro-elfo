@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Mastro Elfo - Profile{% endblock %}
+
+{% block navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+  <h3>Thanks for logging in, {{ user.username }}</h3>
+  
+  <div class="list-group">
+    <div class="list-group-item">
+      <p class="mb-1">{{ user.username }}</p>
+      <small>Username</small>
+    </div>
+
+    <div class="list-group-item">
+      <p class="mb-1">{{ user.email }}</p>
+      <small>Email</small>
+    </div>
+
+    <div class="list-group-item">
+      <p class="mb-1">{{ user.first_name }}</p>
+      <small>First name</small>
+    </div>
+
+    <div class="list-group-item">
+      <p class="mb-1">{{ user.last_name }}</p>
+      <small>Last name</small>
+    </div>
+
+    <div class="list-group-item">
+      <a class="btn btn-primary" href="/home/profile_edit" role="button">Edit</a>
+    </div>
+  </div>
+{% else %}
+  <p>Welcome, new user. Please <a href="/accounts/login">log in</a>.</p>
+{% endif %}
+
+{% endblock %}
