@@ -5,6 +5,9 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'home/index.html')
 
+def create(request):
+    return render(request, 'registration/index.html')
+
 def profile(request):
     return render(request, 'home/profile.html')
 

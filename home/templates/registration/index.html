@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+{% block content %}
+
+<form method="post" action="{% url 'create' %}">
+{% csrf_token %}
+<input type="hidden" name="next" value="/home/profile">
+
+<div class="form-group">
+  <label for="username">Username</label>
+  <input type="text" class="form-control" id="username" value="{{ user.username }}" aria-describedby="usernameHelp">
+  {% if error.username %}
+    <small id="usernameHelp" class="text-danger">Please enter a valid username</small>
+  {% endif %}
+</div>
+
+<div class="form-group">
+  <label for="username">Password</label>
+  <div class="input-group">
+    <input type="password" class="form-control" id="password" value="{{ user.password }}" aria-describedby="passwordHelp">
+    <div class="input-group-append"/>
+      <button type="button" class="btn btn-outline-secondary material-icons"
+        data-class="toggle-visibility" data-for="password">
+        visibility
+      </button>
+    </div>
+  </div>
+  {% if error.password %}
+    <small id="passwordHelp" class="text-danger">Please enter a valid password</small>
+  {% endif %}
+</div>
+
+<div class="form-group">
+  <label for="username">Repeat</label>
+  <div class="input-group">
+    <input type="password" class="form-control" id="repeat" value="{{ user.repeat }}" aria-describedby="repeatHelp"/>
+    <div class="input-group-append">
+      <button type="button" class="btn btn-outline-secondary material-icons" data-class="toggle-visibility" data-for="repeat">
+        visibility
+      </button>
+    </div>
+  </div>
+  {% if error.repeat %}
+    <small id="repeatHelp" class="text-danger">Wrong password</small>
+  {% endif %}
+</div>
+
+<button disabled type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+{% endblock %}
+
+{% block script %}
+<script>
+  $(document).ready(function(){
+    $('button[data-class="toggle-visibility"]')
+    .each(function(_, button) {
+      button = $(button);
+      let input = $(['#', button.attr('data-for')].join(''))
+      if(input) {
+        button.on('click', function() {
+          if(input.attr('type') === 'password') {
+            input.attr('type', 'text')
+            button.html('visibility_off')
+          }
+          else {
+            input.attr('type', 'password')
+            button.html('visibility')
+          }
+        })
+      }
+    })
+  })
+</script>
+{% endblock %}
